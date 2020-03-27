@@ -1,8 +1,3 @@
-var gold = require('./models/gold');
-
-var data = require('./models/data');
-var hostel = require('./models/hostel');
-
 var login = require('./models/login');
 var drop = require('./models/drop');
 var test_data = require('./models/test_data');
@@ -48,27 +43,6 @@ module.exports = function (app) {
             asap : req.body.asap,
             location : req.body.location,
             comment : req.body.comment
-        }, function (err, todo) {
-            console.log("response");
-            if (err){
-                console.log("creation err");
-                res.send(err);
-            }
-            else{
-                console.log("created");
-                res.send(todo);
-            }
-        });
-       
-    });
-
-    app.post('/api/hostel', function (req, res) {  
-        console.log(req.query);
-              
-        hostel.create({
-            msg: req.query.msg,
-            time: new Date(),
-            phone: req.query.phone
         }, function (err, todo) {
             console.log("response");
             if (err){
@@ -172,109 +146,74 @@ app.post('/api/drop', function (req, res) {
    
 });
 // Angular 
-app.get('/api/test_data', function (req, res) { 
-    console.log("code",req.query)
-test_data.find({},function (err, todo) {
- console.log(todo)
- if (err)
-     res.send(err);
-res.send(todo);
-});
-});
+// app.get('/api/test_data', function (req, res) { 
+//     console.log("code",req.query)
+// test_data.find({},function (err, todo) {
+//  console.log(todo)
+//  if (err)
+//      res.send(err);
+// res.send(todo);
+// });
+// });
 
-app.post('/api/test_data', function (req, res) {  
-console.log(req.body);
+// app.post('/api/test_data', function (req, res) {  
+// console.log(req.body);
       
-test_data.create({
-    name: req.body.name,
-    time: new Date(),
-    phone: req.body.phone,
-    address : req.body.address,
+// test_data.create({
+//     name: req.body.name,
+//     time: new Date(),
+//     phone: req.body.phone,
+//     address : req.body.address,
     
-    exp : req.body.exp
-}, function (err, todo) {
-    console.log("response");
-    if (err){
-        console.log("creation err");
-        res.send(err);
-    }
-    else{
-        console.log("created");
-        res.send(todo);
-    }
-});
+//     exp : req.body.exp
+// }, function (err, todo) {
+//     console.log("response");
+//     if (err){
+//         console.log("creation err");
+//         res.send(err);
+//     }
+//     else{
+//         console.log("created");
+//         res.send(todo);
+//     }
+// });
 
-});
+// });
 
 // =========
 // gold project====
-app.post('/api/gold', function (req, res) {  
-    console.log(req.body);
+// app.post('/api/gold', function (req, res) {  
+//     console.log(req.body);
           
-    gold.create({
-        code: req.body.code,
-        time: new Date(),
-        value: req.body.value,
+//     gold.create({
+//         code: req.body.code,
+//         time: new Date(),
+//         value: req.body.value,
        
-    }, function (err, todo) {
-        console.log("response");
-        if (err){
-            console.log("creation err");
-            res.send(err);
-        }
-        else{
-            console.log("created");
-            res.send(todo);
-        }
-    });
+//     }, function (err, todo) {
+//         console.log("response");
+//         if (err){
+//             console.log("creation err");
+//             res.send(err);
+//         }
+//         else{
+//             console.log("created");
+//             res.send(todo);
+//         }
+//     });
    
-});
+// });
 
-app.get('/api/gold', function (req, res) { 
-    console.log("gold query",req.query)
-gold.find({},function (err, todo) {
- console.log(todo)
- if (err)
-     res.send(err);
-res.send(todo);
-});
-});
+// app.get('/api/gold', function (req, res) { 
+//     console.log("gold query",req.query)
+// gold.find({},function (err, todo) {
+//  console.log(todo)
+//  if (err)
+//      res.send(err);
+// res.send(todo);
+// });
+// });
 
-//===
-
-    // app.put('/api/lms', function (req, res) { 
-    //     console.log("time",req.body.totalLostMin);
-        
-    //    var newData ={
-    //     finishedTime : new Date()
-    //    };
-      
-    //    if(req.body.task)  
-    //    newData.task = req.body.task;
-    //     lms.update({code:req.body.code}, {
-    //          $inc:{totalLostMin:req.body.totalLostMin?req.body.totalLostMin:0}
-    //         }, {}, function(err, numAffected) {
-    //         // numAffected is the number of updated documents
-    //         if (err)
-    //             res.send(err);
-    //     //console.log(numAffected)
-    //     // if(req.body.totalLostMin)  
-    //     // newData.totalLostMin = req.body.totalLostMin;
-    //         lms.update({code:req.body.code}, {
-    //             $set:newData
-    //         }, {}, function(err, numAffected) {
-    //         // numAffected is the number of updated documents
-    //         if (err)
-    //             res.send(err);
-    //     //console.log(numAffected)
-    //         res.send(numAffected);
-    //         });
-    //       });
-    // });
-
-    // app.get('*', function (req, res) {
-    //    res.sendFile(__dirname + '/public/index.html'); 
-    // });
 
 
 };
