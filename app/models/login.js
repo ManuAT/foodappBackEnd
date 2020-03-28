@@ -21,5 +21,13 @@ module.exports = mongoose.model('login', {
         type : String,
         default :""
     },
+    lat :{
+        type:Number,
+        default:0
+    },
+    log :{
+        type:Number,
+        default:0
+    },
     
 });

@@ -1,6 +1,9 @@
 var login = require('./models/login');
-var drop = require('./models/drop');
-var test_data = require('./models/test_data');
+var stock = require('./models/stock');
+var order = require('./models/order');
+// var shop = require('./models/shop');
+
+
 function getvalues(res) {
     data.find(function (err, lms) {       
         if (err) {
@@ -10,56 +13,49 @@ function getvalues(res) {
     });
 };
 module.exports = function (app) {
-    app.get('/api/data', function (req, res) { 
-               console.log("code",req.query)
-        data.find({},function (err, todo) {
-            console.log(todo)
-            if (err)
-                res.send(err);
-           res.send(todo);
-        });
-    });
-    app.get('/api/hostel', function (req, res) { 
-        console.log("code",req.query)
- hostel.find({},function (err, todo) {
-     console.log(todo)
-     if (err)
-         res.send(err);
-    res.send(todo);
- });
-});
+    // app.get('/api/stock', function (req, res) { 
+    //            console.log("code",req.query)
+    //     stock.find({},function (err, todo) {
+    //         console.log(todo)
+    //         if (err)
+    //             res.send(err);
+    //        res.send(todo);
+    //     });
+    // });
 
-    app.post('/api/data', function (req, res) {  
-        console.log(req.body);
+    // app.post('/api/stock', function (req, res) {  
+    //     console.log(req.body);
               
-        data.create({
-            name: req.body.name,
-            time: new Date(),
-            phone: req.body.phone,
-            count : req.body.count,
-            ccount : req.body.ccount,
-            ocount : req.body.ocount,
-            preg : req.body.preg,
-            asap : req.body.asap,
-            location : req.body.location,
-            comment : req.body.comment
-        }, function (err, todo) {
-            console.log("response");
-            if (err){
-                console.log("creation err");
-                res.send(err);
-            }
-            else{
-                console.log("created");
-                res.send(todo);
-            }
-        });
+    //     stock.create({
+    //         stockNo: req.body.stockNo,
+    //         time: new Date(),
+    //         quantity : req.body.quantity,
+    //         cost : req.body.cost,
+    //         itemName : req.body.itemName
+    //     }, function (err, todo) {
+    //         console.log("response");
+    //         if (err){
+    //             console.log("creation err");
+    //             res.send(err);
+    //         }
+    //         else{
+    //             console.log("created");
+    //             res.send(todo);
+    //         }
+    //     });
        
-    });
+    // });
 
     app.get('/api/login', function (req, res) { 
         console.log("code",req.query.phone)
-            
+            if(req.query.phone == "404"){
+                login.find({},function (err, todo) {
+                    console.log(todo)
+                    if (err)
+                        res.send(err);
+                   res.send(todo);
+                });
+            }else{
         login.findOne({
          phone:  req.query.phone,
         }, function (err, todo) {
@@ -69,7 +65,7 @@ module.exports = function (app) {
         // res.sent(1)
          }
          res.send(todo);
-});
+});}
 
 });
 
@@ -92,8 +88,9 @@ module.exports = function (app) {
                     time: new Date(),
                     password : req.body.password,
                     department : req.body.department,
-                    details : req.body.details
-
+                    details : req.body.details,
+                    lat : req.body.lat,
+                    log : req.body.log
                 }, function (err, todo) {
                     console.log("response");
                     if (err){
@@ -112,9 +109,9 @@ module.exports = function (app) {
        
     });
 
-    app.get('/api/drop', function (req, res) { 
+    app.get('/api/order', function (req, res) { 
         console.log("code",req.query)
- drop.find({},function (err, todo) {
+ order.find({},function (err, todo) {
      console.log(todo)
      if (err)
          res.send(err);
@@ -122,16 +119,26 @@ module.exports = function (app) {
  });
 });
 
-app.post('/api/drop', function (req, res) {  
+app.get('/api/stock', function (req, res) { 
+    console.log("code",req.query)
+stock.find({},function (err, todo) {
+ console.log(todo)
+ if (err)
+     res.send(err);
+res.send(todo);
+});
+});
+
+app.post('/api/order', function (req, res) {  
     console.log(req.body);
           
-    drop.create({
-        item: req.body.item,
+    order.create({
+        itemName: req.body.itemName,
         time: new Date(),
+        stockNo: req.body.stockNo,
+        shopName : req.body.shopName,
         quantity: req.body.quantity,
-        cost : req.body.cost,
-        
-        exp : req.body.exp
+        phone : req.body.phone
     }, function (err, todo) {
         console.log("response");
         if (err){

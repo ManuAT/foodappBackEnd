@@ -1,28 +1,32 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('drop', {
-    item :{
-        type : String,
-        default :""
+module.exports = mongoose.model('order', {
+    itemName :{
+        type: String,
+        default : ""
     },
    
     time :{
         type: String,
         default : ""
     },
-    quantity :{
+    stockNo :{
         type:String,
         default:""
     },
     
-    cost :{
+    shopName :{
         type:String,
         default:""
     },
     
-    exp :{
+    qundity :{
         type : Number,
-        default: 0 
+        default: 1
+    },
+    phone :{
+        type : String,
+        default: ""
     }
     
     
