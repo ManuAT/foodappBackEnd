@@ -224,5 +224,10 @@ app.post('/api/order', function (req, res) {
 app.get('/login', function (req, res) {
     res.sendFile(__dirname + '/dist/foodapp/index.html'); 
 });
-
+app.get('/customer', function (req, res) {
+    res.sendFile(__dirname + '/dist/foodapp/index.html'); 
+});
+app.get('/delevery', function (req, res) {
+    res.sendFile(__dirname + '/dist/foodapp/index.html'); 
+});
 };
